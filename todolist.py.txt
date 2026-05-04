@@ -1,2 +1,53 @@
+def calculate(a, op, b):
+    if op == '+':
+        return a + b
+    elif op == '-':
+        return a - b
+    elif op in ('*', 'x', '×'):
+        return a * b
+    elif op in ('/', '÷'):
+        if b == 0:
+            return "Error: Division by zero"
+        return a / b
+    else:
+        return f"Error: Unknown operator '{op}'"
 
+
+def main():
+    print("Simple Calculator")
+    print("Operators: +  -  *  /")
+    print("Type 'quit' to exit\n")
+
+    while True:
+        user_input = input("Enter expression (e.g. 3 + 4): ").strip()
+
+        if user_input.lower() in ('quit', 'exit', 'q'):
+            print("Goodbye!")
+            break
+
+        parts = user_input.split()
+        if len(parts) != 3:
+            print("Invalid input. Use format: <number> <operator> <number>\n")
+            continue
+
+        a_str, op, b_str = parts
+
+        try:
+            a = float(a_str)
+            b = float(b_str)
+        except ValueError:
+            print("Invalid numbers. Please try again.\n")
+            continue
+
+        result = calculate(a, op, b)
+
+        if isinstance(result, str):
+            print(result + "\n")
+        else:
+            # Show as int if result is a whole number
+            print(f"= {int(result) if result == int(result) else result}\n")
+
+
+if __name__ == "__main__":
+    main()
 
